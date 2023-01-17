@@ -13,7 +13,7 @@ public class CidadeArmazenamentoMemoriaController implements CidadeController {
     public void cadastrar(Cidade cidade) {
         cidade.setId(UUID.randomUUID());
         cidades.put(cidade.getId(), cidade);
-        System.out.println("Cidade cadastrada com sucesso: " + cidade.getNomeDaCidade() + ", " + cidade.getNomeDoEstado());
+        Cidade.exibirCidade(cidade);
     }
 
     @Override

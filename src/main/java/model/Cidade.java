@@ -1,26 +1,42 @@
 package model;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@Table(name = "cidades")
 public class Cidade {
-
+    @Id
     private UUID id;
-    private String nomeDaCidade;
-    private String nomeDoEstado;
+    private String cidade;
+    @ManyToOne
+    private Estado estado;
 
     public Cidade() {}
+
+    public Cidade(String cidade, String estado) {
+        this.cidade = cidade;
+        this.estado = new Estado(UUID.randomUUID(), estado);
+    }
 
     public void setId(UUID id) { this.id = id; }
 
     public UUID getId() { return this.id; }
 
-    public void setNomeDaCidade(String nomeDaCidade) { this.nomeDaCidade = nomeDaCidade; }
+    public void setCidade(String cidade) { this.cidade = cidade; }
 
-    public String getNomeDaCidade() { return this.nomeDaCidade; }
+    public String getCidade() { return this.cidade; }
 
-    public void setNomeDoEstado(String nomeDoEstado) { this.nomeDoEstado = nomeDoEstado; }
+    @Override
+    public boolean equals(Object obj) {
 
-    public String getNomeDoEstado() { return this.nomeDoEstado; }
+        Cidade other = (Cidade) obj;
 
 
+        return super.equals(obj);
+    }
+    public static void exibirCidade(Cidade cidade) {
+        System.out.println("Cidade\nNome: " + cidade.getCidade()
+                + "\nEstado: " + cidade.estado.getEstado() + "\n");
+    }
 }

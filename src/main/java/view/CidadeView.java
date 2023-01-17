@@ -3,7 +3,7 @@ package view;
 import controller.CidadeController;
 import controller.exception.EntradaDeDados;
 import controller.impl.CidadeArmazenamentoMemoriaController;
-import model.Cidade;
+import model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,15 +16,13 @@ public class CidadeView {
 
     public void cadastrar() {
 
-        Cidade cidade = new Cidade();
-
         System.out.println("Informe o nome da cidade: ");
         String nomeDaCidade = scan.nextLine();
-        cidade.setNomeDaCidade(nomeDaCidade);
 
         System.out.println("Informe o estado da cidade: ");
         String nomeDoEstado = scan.nextLine();
-        cidade.setNomeDoEstado(nomeDoEstado);
+
+        Cidade cidade = new Cidade(nomeDaCidade, nomeDoEstado);
 
         controller.cadastrar(cidade);
     }
@@ -33,14 +31,10 @@ public class CidadeView {
         List<Cidade> cidades = controller.listar();
         for (int index = 0; index < cidades.size(); index++) {
             System.out.println((index + 1) + " - ");
-            exibirCidade(cidades.get(index));
+            Cidade.exibirCidade(cidades.get(index));
         }
     }
 
-    private void exibirCidade(Cidade cidade) {
-        System.out.println("Cidade\nNome: " + cidade.getNomeDaCidade()
-        + "\nEstado: " + cidade.getNomeDoEstado() + "\n");
-    }
 
     public void exibirMenu() {
 
