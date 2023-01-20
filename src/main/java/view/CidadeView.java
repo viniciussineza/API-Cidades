@@ -7,6 +7,7 @@ import model.*;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class CidadeView {
 
@@ -14,7 +15,7 @@ public class CidadeView {
 
     private Scanner scan = new Scanner(System.in);
 
-    public void cadastrar() {
+    public void cadastrarCidade () {
 
         System.out.println("Informe o nome da cidade: ");
         String nomeDaCidade = scan.nextLine();
@@ -22,7 +23,22 @@ public class CidadeView {
         System.out.println("Informe o estado da cidade: ");
         String nomeDoEstado = scan.nextLine();
 
-        Cidade cidade = new Cidade(nomeDaCidade, nomeDoEstado);
+        System.out.println("Informe a sigla do Estado: ");
+        String siglaDoestado = scan.nextLine();
+
+        System.out.println("Informe o nome do País: ");
+        String nomeDoPais = scan.nextLine();
+
+        System.out.println("Informe a sigla do Pais: ");
+        String sigladoPais = scan.nextLine();
+
+        Cidade cidade = new Cidade(nomeDaCidade,
+                                    new Estado(UUID.randomUUID(),
+                                            nomeDoEstado,
+                                            siglaDoestado,
+                                            new Pais(UUID.randomUUID(), nomeDoPais, sigladoPais)
+                                    )
+        );
 
         controller.cadastrar(cidade);
     }
@@ -36,7 +52,7 @@ public class CidadeView {
     }
 
 
-    public void exibirMenu() {
+    public void menuCidadeView() {
 
         System.out.println("Escolha a opção desejada: ");
         System.out.println("1 - Cadastrar Cidade");
@@ -54,29 +70,21 @@ public class CidadeView {
             if(opcao != 1 && opcao != 2 && opcao != 0) {
                 throw new EntradaDeDados(e.getMessage());
             }
-            System.out.println("Favor informar uma das opções");
-            exibirMenu();
+            System.out.println("Favor informar uma das opções do menu");
+            menuCidadeView();
         }
 
         switch (opcao) {
-            case 1:
-                cadastrar();
-                break;
-            case 2:
-                listar();
-                break;
-            case 3:
-                System.out.println("Novidade na próxima versão!");
-                break;
-            case 4:
-                System.out.println("Novidade na próxima versão!");
-                break;
-            case 0:
+            case 1 -> cadastrarCidade();
+            case 2 -> listar();
+            case 3 -> System.out.println("Novidade na próxima versão!");
+            case 4 -> System.out.println("Novidade na próxima versão!");
+            case 0 -> {
                 System.out.println("Obrigado por usar o sistema");
                 System.exit(0);
-            default:
-                System.out.println("Opção inválida");
+            }
+            default -> System.out.println("Opção inválida");
         }
-        exibirMenu();
+        menuCidadeView();
     }
 }

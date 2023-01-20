@@ -14,9 +14,10 @@ public class Cidade {
 
     public Cidade() {}
 
-    public Cidade(String cidade, String estado) {
+    public Cidade(String cidade,
+                  Estado estado) {
         this.cidade = cidade;
-        this.estado = new Estado(UUID.randomUUID(), estado);
+        this.estado = estado;
     }
 
     public void setId(UUID id) { this.id = id; }
